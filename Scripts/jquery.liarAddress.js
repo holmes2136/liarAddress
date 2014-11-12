@@ -18,10 +18,12 @@
 
     simpAddr = clazz(Object, {
 
-        init: function () {
-
+        init: function (selector) {
+            var $parent = $(selector);
             this.id = "test";
             this.container = this.createContainer();
+
+            $parent.wrap(this.$container); //appendTo(document.body);
 
         },
         createContainer: function () {
@@ -55,7 +57,7 @@
             addr;
 
         addr = new simpAddr();
-        addr.init();
+        addr.init(this);
         addr.initContainer();
 
         return addr.container;
