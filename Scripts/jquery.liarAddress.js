@@ -22,7 +22,7 @@
             var $parent = $(selector);
             this.id = "test";
             this.container = this.createContainer();
-
+            $parent.data('simp', this);
             $parent.append(this.container);
 
         },
@@ -83,6 +83,15 @@
             $city.select2({ 'val': zipMenu3[0].CodeName,
                 'placeholder': '縣市'
             });
+        },
+        postal: function () {
+            var $container = $(this).find(".liarAddr-container"),
+                $postal_Code = $container.find(".liaraddr-postalCode:last"),
+                val = arguments[0];
+
+
+            return $postal_Code.select2('val');
+
         }
 
     });
@@ -91,25 +100,49 @@
     $.fn.simpAddr = function () {
 
         var args = Array.prototype.slice.call(arguments, 0),
-            allowedMethods = ["postal", "city", "town", "detail"],
-            addr;
+            allowedMethods = ["postal", "city", "town", "detail", "simpAddr", "ComplexAddr"],
+            addr, method, value,
+            $container = $(this);
 
-        addr = new simpAddr();
-        addr.init(this);
-        addr.initContainer();
-        addr.initPostalCode();
-        addr.initCity();
-        return addr.container;
+
+   
+
+
+        if (args.length === 0) {
+            
+            addr = new simpAddr();
+            addr.init(this);
+            addr.initContainer();
+            addr.initPostalCode();
+            addr.initCity();
+        }
+        else if (typeof (args[0]) === "string") {
+
+            addr = $(this).data("simp");
+            if (addr === undefined) return;
+
+            method = args[0];
+
+            if ($.inArray(args[0], allowedMethods) < 0) {
+                throw "Unknown method: " + args[0];
+            }
+
+           
+            if (method.length > 0) {
+                value = addr[method].apply(this, args.slice(1));
+            } else {
+                value = addr;
+            }
+
+
+        }
+
+        return value;
     };
 
 
     // exports
-    window.liarAddr = {
-        "class": {
-            "simp": simpAddr,
-            "comp": simpAddr
-        }
-    };
+    window.simpAddr = new simpAddr();
 
 
 })(jQuery);
