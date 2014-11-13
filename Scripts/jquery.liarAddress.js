@@ -84,7 +84,15 @@
                 'placeholder': '縣市'
             });
         },
-        postal: function () {
+        initTown: function () {
+            var $container = $(this.container),
+                $town = $container.find(".liaraddr-town:last"),
+                options = '<option></option>';
+
+            $town.empty().append(options).select2({ 'placeholder': "鄉鎮" }).select2('disable');
+
+        },
+        postalVal: function () {
             var $container = $(this).find(".liarAddr-container"),
                 $postal_Code = $container.find(".liaraddr-postalCode:last"),
                 val = arguments[0];
@@ -92,6 +100,27 @@
 
             return $postal_Code.select2('val');
 
+        },
+        cityVal: function () {
+            var $container = $(this).find(".liarAddr-container"),
+                $city = $container.find(".liaraddr-city:last"),
+                val = arguments[0];
+
+            return $city.select2('val');
+        },
+        townVal: function () {
+            var $container = $(this).find(".liarAddr-container"),
+                $town = $container.find(".liaraddr-town:last"),
+                val = arguments[0];
+
+            return $town.select2('val');
+        },
+        detailVal: function () {
+            var $container = $(this).find(".liarAddr-container"),
+                $detail = $container.find(".liaraddr-detail"),
+                val = arguments[0];
+
+            return $detail.val();
         }
 
     });
@@ -100,21 +129,18 @@
     $.fn.simpAddr = function () {
 
         var args = Array.prototype.slice.call(arguments, 0),
-            allowedMethods = ["postal", "city", "town", "detail", "simpAddr", "ComplexAddr"],
+            allowedMethods = ["postalVal", "cityVal", "townVal", "detailVal"],
             addr, method, value,
             $container = $(this);
 
-
-   
-
-
         if (args.length === 0) {
-            
+
             addr = new simpAddr();
             addr.init(this);
             addr.initContainer();
             addr.initPostalCode();
             addr.initCity();
+            addr.initTown();
         }
         else if (typeof (args[0]) === "string") {
 
@@ -127,7 +153,7 @@
                 throw "Unknown method: " + args[0];
             }
 
-           
+
             if (method.length > 0) {
                 value = addr[method].apply(this, args.slice(1));
             } else {
