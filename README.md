@@ -16,3 +16,5 @@ $("#sample").simpAddr();
 >>> 
 ```
 ![alt text](https://dl.dropboxusercontent.com/u/23971112/github/liaraddress.jpg "Title")
+
+[DEMO](http://jsbin.com/momawo/1/)
