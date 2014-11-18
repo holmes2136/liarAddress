@@ -19,11 +19,63 @@
     simpAddr = clazz(Object, {
 
         init: function (selector) {
-            var $parent = $(selector);
+            var $parent = $(selector),
+                $postalDrop,
+                $cityDrop,
+                $townDrop;
+
             this.id = "test";
             this.container = this.createContainer();
             $parent.data('simp', this);
             $parent.append(this.container);
+
+            $postalDrop = $parent.find(".liaraddr-postalCode");
+            $cityDrop = $parent.find(".liaraddr-city");
+            $townDrop = $parent.find(".liaraddr-town");
+
+            //選擇郵遞區號 , 則同時選擇相對應的縣市和鄉鎮
+            //若打叉郵遞區號,則同時reset
+            $postalDrop.on('change', function (e) {
+                var val = $(this).select2('val');
+
+                if (val !== '') {
+                    $townDrop.select2('enable');
+                    var matchObj = _.filter(zipMenu, function (obj) { return obj.CodeNo === val });
+                    $cityDrop.select2('val', matchObj[0].CodeName.slice(0, 3));
+                    $townDrop.select2('val', matchObj[0].CodeName.slice(3, 6));
+                } else {
+                    $townDrop.select2('disable');
+                    $cityDrop.select2('val', '');
+                    $townDrop.select2('val', '');
+                }
+            });
+
+            $cityDrop.on('change', function (e) {
+                var val = $(this).select2('val');
+
+                if (val === '') {
+                    $postalDrop.select2('val', '');
+                    $townDrop.select2('val', '');
+                    $townDrop.select2('disable');
+                } else {
+                    $townDrop.select2('enable');
+                }
+            });
+
+            $townDrop.on('change', function (e) {
+                var val = $(this).select2('val');
+
+                if (val === '') {
+                    $postalDrop.select2('val', '');
+                    $townDrop.select2('val', '');
+                    $townDrop.select2('disable');
+                } else {
+
+                    var matchObj = _.filter(zipMenu, function (obj) { return obj.CodeName.slice(3,6) === val });
+                    $postalDrop.select2('val', matchObj[0].CodeNo);
+                }
+            });
+            //選完縣市以及鄉鎮 , 則需要連動郵遞區號
 
         },
         createContainer: function () {
@@ -45,6 +97,7 @@
             $postal_Code.select2();
             $city.select2();
             $town.select2();
+
         },
         initPostalCode: function () {
             var $container = $(this.container),
@@ -58,7 +111,8 @@
 
             $postal_Code.empty().append(options);
             $postal_Code.select2({ 'val': zipMenu[0].CodeNo,
-                'placeholder': '郵遞區號'
+                'placeholder': '郵遞區號',
+                'allowClear': true
             });
 
         },
@@ -81,15 +135,25 @@
 
             $city.empty().append(options);
             $city.select2({ 'val': zipMenu3[0].CodeName,
-                'placeholder': '縣市'
+                'placeholder': '縣市',
+                'allowClear': true
             });
         },
         initTown: function () {
             var $container = $(this.container),
                 $town = $container.find(".liaraddr-town:last"),
-                options = '<option></option>';
+                zipMenu = !!window['zipMenu'] ? window['zipMenu'] : [],
+                options = '';
 
-            $town.empty().append(options).select2({ 'placeholder': "鄉鎮" }).select2('disable');
+            for (var i = 0; i < zipMenu.length; i++) {
+                var text = zipMenu[i].CodeName.slice(3, 6);
+                options += '<option value=' + text + '>' + text + '</option>';
+            }
+
+            $town.empty().append('<option></option>').append(options).select2({
+                'placeholder': "鄉鎮",
+                'allowClear': true
+            }).select2('disable');
 
         },
         postalVal: function () {
@@ -121,6 +185,11 @@
                 val = arguments[0];
 
             return $detail.val();
+        },
+        destroy: function () {
+            var addr = this.data("simp");
+
+            addr.container.remove();
         }
 
     });
@@ -129,7 +198,7 @@
     $.fn.simpAddr = function () {
 
         var args = Array.prototype.slice.call(arguments, 0),
-            allowedMethods = ["postalVal", "cityVal", "townVal", "detailVal"],
+            allowedMethods = ["postalVal", "cityVal", "townVal", "detailVal", 'destroy'],
             addr, method, value,
             $container = $(this);
 
