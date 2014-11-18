@@ -64,14 +64,15 @@
 
             $townDrop.on('change', function (e) {
                 var val = $(this).select2('val');
+                var has_postal_code = $postalDrop.select2('val') === '' ? false : true;
 
                 if (val === '') {
                     $postalDrop.select2('val', '');
-                    $townDrop.select2('val', '');
-                    $townDrop.select2('disable');
+                    if (!has_postal_code) { $townDrop.select2('disable'); }
+                     
                 } else {
 
-                    var matchObj = _.filter(zipMenu, function (obj) { return obj.CodeName.slice(3,6) === val });
+                    var matchObj = _.filter(zipMenu, function (obj) { return obj.CodeName.slice(3, 6) === val });
                     $postalDrop.select2('val', matchObj[0].CodeNo);
                 }
             });
