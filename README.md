@@ -5,7 +5,6 @@ liarAddress
 
 How liarAddress works
 ==========
-Just attache data-liartype attribute on control , and liarobject will use it to judge controls
 
 Sample 1 : create simple address control : 
 
