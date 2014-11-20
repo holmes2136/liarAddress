@@ -167,12 +167,28 @@
             return $postal_Code.select2('val');
 
         },
+        setPostalVal: function () {
+            var $container = $(this).find(".liarAddr-container"),
+                $postal_Code = $container.find(".liaraddr-postalCode:last"),
+                val = !!arguments[0] ? arguments[0] : '';
+
+
+                $postal_Code.select2('val',val);
+
+        },
         cityVal: function () {
             var $container = $(this).find(".liarAddr-container"),
                 $city = $container.find(".liaraddr-city:last"),
                 val = arguments[0];
 
             return $city.select2('val');
+        },
+        setCityVal: function () {
+            var $container = $(this).find(".liarAddr-container"),
+                $city = $container.find(".liaraddr-city:last"),
+                val = !!arguments[0] ? arguments[0] : '';
+
+                $city.select2('val', val);
         },
         townVal: function () {
             var $container = $(this).find(".liarAddr-container"),
@@ -181,12 +197,26 @@
 
             return $town.select2('val');
         },
+        setTownVal: function () {
+            var $container = $(this).find(".liarAddr-container"),
+                $town = $container.find(".liaraddr-town:last"),
+                val = !!arguments[0] ? arguments[0] : '';
+
+                $town.select2('val',val);
+        },
         detailVal: function () {
             var $container = $(this).find(".liarAddr-container"),
                 $detail = $container.find(".liaraddr-detail"),
                 val = arguments[0];
 
             return $detail.val();
+        },
+        setDetailVal: function () {
+            var $container = $(this).find(".liarAddr-container"),
+                $detail = $container.find(".liaraddr-detail"),
+                val = !!arguments[0] ? arguments[0] : '';
+
+                $detail.val(val);
         },
         destroy: function () {
             var addr = this.data("simp");
@@ -220,7 +250,7 @@
     $.fn.simpAddr = function () {
 
         var args = Array.prototype.slice.call(arguments, 0),
-            allowedMethods = ["postalVal", "cityVal", "townVal", "detailVal", 'destroy', 'getAddrArray'],
+            allowedMethods = ["postalVal", "cityVal", "townVal", "detailVal", 'destroy', 'getAddrArray', 'setPostalVal', 'setCityVal', 'setTownVal', 'setDetailVal'],
             addr, method, value,
             $container = $(this);
 
