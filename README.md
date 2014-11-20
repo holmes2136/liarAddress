@@ -28,28 +28,28 @@ liarAddress  API
 >>> "100"
 
 //設定郵遞區號
-("#sample").simpAddr('setPostalVal');
+("#sample").simpAddr('setPostalVal','100');
 
 //取得縣市
 $("#sample").simpAddr('cityVal')
 >>>"台北市"
 
 //設定縣市
-$("#sample").simpAddr('setCityVal')
+$("#sample").simpAddr('setCityVal','台北市')
 
 //取得地區名稱
 $("#sample").simpAddr('townVal')
 >>>"中正區"
 
 //設定地區名稱
-$("#sample").simpAddr('setTownVal')
+$("#sample").simpAddr('setTownVal','中正區')
 
 //取得詳細地址
 $("#sample").simpAddr('detailVal')
 >>>"武松街xx巷"
 
 //設定詳細地址
-$("#sample").simpAddr('setDetailVal')
+$("#sample").simpAddr('setDetailVal','武松街xx巷')
 
 //取得地址陣列
 $("#sample").simpAddr('getAddrArray')
