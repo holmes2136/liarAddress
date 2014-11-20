@@ -28,37 +28,37 @@ liarAddress  API
 >>> "100"
 
 //設定郵遞區號
-("#sample").simpAddr('setPostalVal','100');
+("#sample").simpAddr('postalVal','100');
 
 //取得縣市
 $("#sample").simpAddr('cityVal')
 >>>"台北市"
 
 //設定縣市
-$("#sample").simpAddr('setCityVal','台北市')
+$("#sample").simpAddr('cityVal','台北市')
 
 //取得地區名稱
 $("#sample").simpAddr('townVal')
 >>>"中正區"
 
 //設定地區名稱
-$("#sample").simpAddr('setTownVal','中正區')
+$("#sample").simpAddr('townVal','中正區')
 
 //取得詳細地址
 $("#sample").simpAddr('detailVal')
 >>>"武松街xx巷"
 
 //設定詳細地址
-$("#sample").simpAddr('setDetailVal','武松街xx巷')
+$("#sample").simpAddr('detailVal','武松街xx巷')
 
 //取得地址陣列
 $("#sample").simpAddr('getAddrArray')
 >>>['100','台北市','中正區','武松街xx巷']
 
 //回復預設狀態 , 選單會回到都沒有選取任何值的狀態
-$('#sample').simpAddr('setPostalVal','')
-$("#sample").simpAddr('setTownVal','')
-$("#sample").simpAddr('setCityVal','')
+$('#sample').simpAddr('postalVal','')
+$("#sample").simpAddr('townVal','')
+$("#sample").simpAddr('cityVal','')
 
 ```
 
