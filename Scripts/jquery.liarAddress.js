@@ -1,4 +1,6 @@
-﻿(function ($) {
+﻿/// <reference path="underscore-1.4.1.js" />
+
+(function ($) {
     'use strict';
 
     if (window.liarAddr !== undefined) {
@@ -24,7 +26,7 @@
                 $cityDrop,
                 $townDrop;
 
-            this.id = "test";
+            //this.id = "test";
             this.container = this.createContainer();
             $parent.data('simp', this);
             $parent.append(this.container);
@@ -33,8 +35,7 @@
             $cityDrop = $parent.find(".liaraddr-city");
             $townDrop = $parent.find(".liaraddr-town");
 
-            //選擇郵遞區號 , 則同時選擇相對應的縣市和鄉鎮
-            //若打叉郵遞區號,則同時reset
+
             $postalDrop.on('change', function (e) {
                 var val = $(this).select2('val');
 
@@ -69,14 +70,14 @@
                 if (val === '') {
                     $postalDrop.select2('val', '');
                     if (!has_postal_code) { $townDrop.select2('disable'); }
-                     
+
                 } else {
 
                     var matchObj = _.filter(zipMenu, function (obj) { return obj.CodeName.slice(3, 6) === val });
                     $postalDrop.select2('val', matchObj[0].CodeNo);
                 }
             });
-            //選完縣市以及鄉鎮 , 則需要連動郵遞區號
+
 
         },
         createContainer: function () {
@@ -191,6 +192,25 @@
             var addr = this.data("simp");
 
             addr.container.remove();
+        },
+        getAddressVal: function () {
+            var resultAddress = [],
+                $container = $(this).find(".liarAddr-container"),
+                $postal_Code = $container.find(".liaraddr-postalCode:last"),
+                $city = $container.find(".liaraddr-city:last"),
+                $town = $container.find(".liaraddr-town:last"),
+                $detail = $container.find(".liaraddr-detail");
+
+            var postalC_Code_val = $postal_Code.select2('val');
+            var city_val = $city.select2('val');
+            var town_val = $posttownal_Code.select2('val');
+            var detail_val = $detail.select2('val');
+
+            reusltAddress.push(postalC_Code_val);
+            reusltAddress.push(city_val);
+            reusltAddress.push(town_val);
+            reusltAddress.push(detail_val);
+
         }
 
     });
@@ -199,18 +219,26 @@
     $.fn.simpAddr = function () {
 
         var args = Array.prototype.slice.call(arguments, 0),
-            allowedMethods = ["postalVal", "cityVal", "townVal", "detailVal", 'destroy'],
+            allowedMethods = ["postalVal", "cityVal", "townVal", "detailVal", 'destroy', 'getAddressVal'],
             addr, method, value,
             $container = $(this);
 
+
+
+
         if (args.length === 0) {
 
-            addr = new simpAddr();
-            addr.init(this);
-            addr.initContainer();
-            addr.initPostalCode();
-            addr.initCity();
-            addr.initTown();
+            addr = $(this).data("simp");
+            
+            if (addr === undefined) {
+                addr = new simpAddr();
+                addr.init(this);
+                addr.initContainer();
+                addr.initPostalCode();
+                addr.initCity();
+                addr.initTown();
+            };
+            
         }
         else if (typeof (args[0]) === "string") {
 
