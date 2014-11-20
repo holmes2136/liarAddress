@@ -173,7 +173,7 @@
                 val = !!arguments[0] ? arguments[0] : '';
 
 
-                $postal_Code.select2('val',val);
+            $postal_Code.select2('val', val);
 
         },
         cityVal: function () {
@@ -188,7 +188,7 @@
                 $city = $container.find(".liaraddr-city:last"),
                 val = !!arguments[0] ? arguments[0] : '';
 
-                $city.select2('val', val);
+            $city.select2('val', val);
         },
         townVal: function () {
             var $container = $(this).find(".liarAddr-container"),
@@ -202,7 +202,7 @@
                 $town = $container.find(".liaraddr-town:last"),
                 val = !!arguments[0] ? arguments[0] : '';
 
-                $town.select2('val',val);
+            $town.select2('val', val);
         },
         detailVal: function () {
             var $container = $(this).find(".liarAddr-container"),
@@ -216,7 +216,7 @@
                 $detail = $container.find(".liaraddr-detail"),
                 val = !!arguments[0] ? arguments[0] : '';
 
-                $detail.val(val);
+            $detail.val(val);
         },
         destroy: function () {
             var addr = this.data("simp");
@@ -253,9 +253,6 @@
             allowedMethods = ["postalVal", "cityVal", "townVal", "detailVal", 'destroy', 'getAddrArray', 'setPostalVal', 'setCityVal', 'setTownVal', 'setDetailVal'],
             addr, method, value,
             $container = $(this);
-
-
-
 
         if (args.length === 0) {
 
