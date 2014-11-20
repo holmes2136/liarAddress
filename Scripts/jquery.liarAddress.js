@@ -193,7 +193,7 @@
 
             addr.container.remove();
         },
-        getAddressVal: function () {
+        getAddrArray: function () {
             var resultAddress = [],
                 $container = $(this).find(".liarAddr-container"),
                 $postal_Code = $container.find(".liaraddr-postalCode:last"),
@@ -203,14 +203,15 @@
 
             var postalC_Code_val = $postal_Code.select2('val');
             var city_val = $city.select2('val');
-            var town_val = $posttownal_Code.select2('val');
-            var detail_val = $detail.select2('val');
+            var town_val = $town.select2('val');
+            var detail_val = $detail.val();
 
-            reusltAddress.push(postalC_Code_val);
-            reusltAddress.push(city_val);
-            reusltAddress.push(town_val);
-            reusltAddress.push(detail_val);
+            resultAddress.push(postalC_Code_val);
+            resultAddress.push(city_val);
+            resultAddress.push(town_val);
+            resultAddress.push(detail_val);
 
+            return resultAddress;
         }
 
     });
@@ -219,7 +220,7 @@
     $.fn.simpAddr = function () {
 
         var args = Array.prototype.slice.call(arguments, 0),
-            allowedMethods = ["postalVal", "cityVal", "townVal", "detailVal", 'destroy', 'getAddressVal'],
+            allowedMethods = ["postalVal", "cityVal", "townVal", "detailVal", 'destroy', 'getAddrArray'],
             addr, method, value,
             $container = $(this);
 
@@ -229,7 +230,7 @@
         if (args.length === 0) {
 
             addr = $(this).data("simp");
-            
+
             if (addr === undefined) {
                 addr = new simpAddr();
                 addr.init(this);
@@ -238,7 +239,7 @@
                 addr.initCity();
                 addr.initTown();
             };
-            
+
         }
         else if (typeof (args[0]) === "string") {
 
