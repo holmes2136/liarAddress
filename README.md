@@ -55,6 +55,11 @@ $("#sample").simpAddr('setDetailVal','武松街xx巷')
 $("#sample").simpAddr('getAddrArray')
 >>>['100','台北市','中正區','武松街xx巷']
 
+//回復預設狀態 , 選單會回到都沒有選取任何值的狀態
+$('#sample').simpAddr('setPostalVal','')
+$("#sample").simpAddr('setTownVal','')
+$("#sample").simpAddr('setCityVal','')
+
 ```
 
 p.s 若需要針對特殊需求新增特殊編號 , 例如海外地等 , 請自行對 liar.zipMenu.js 添加資料
