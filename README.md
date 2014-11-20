@@ -57,4 +57,5 @@ $("#sample").simpAddr('getAddrArray')
 
 ```
 
+p.s 若需要針對特殊需求新增特殊編號 , 例如海外地等 , 請自行對 liar.zipMenu.js 添加資料
 
