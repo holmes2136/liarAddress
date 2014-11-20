@@ -38,6 +38,11 @@ $("#sample").simpAddr('townVal')
 //取得詳細地址
 $("#sample").simpAddr('detailVal')
 >>>"武松街xx巷"
+
+//取得地址陣列
+$("#sample").simpAddr('getAddrArray')
+>>>['100','台北市','中正區','武松街xx巷']
+
 ```
 
 
