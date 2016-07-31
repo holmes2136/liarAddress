@@ -4,7 +4,7 @@
   <head>
     <meta charset='utf-8'>
     <meta http-equiv="X-UA-Compatible" content="chrome=1">
-    <meta name="description" content="Liar-address : jQuery Plugin 台灣地址元件">
+    <meta name="description" content="Liar-address : jQuery Plugin Taiwan Compoment">
 
     <link rel="stylesheet" type="text/css" media="screen" href="stylesheets/stylesheet.css">
 
@@ -19,7 +19,7 @@
           <a id="forkme_banner" href="https://github.com/holmes2136/liarAddress">View on GitHub</a>
 
           <h1 id="project_title">Liar-address</h1>
-          <h2 id="project_tagline">jQuery Plugin 台灣地址元件</h2>
+          <h2 id="project_tagline">jQuery Plugin Taiwan Compoment</h2>
 
             <section id="downloads">
               <a class="zip_download_link" href="https://github.com/holmes2136/liarAddress/zipball/master">Download this project as a .zip file</a>
@@ -78,18 +78,20 @@ $("#sample").simpAddr('detailVal')
 //setting up address
 $("#sample").simpAddr('detailVal','武松街xx巷')
 
-//取得地址陣列
+//get full address array
 $("#sample").simpAddr('getAddrArray')
 &gt;&gt;&gt;['100','台北市','中正區','武松街xx巷']
 
-//回復預設狀態 , 選單會回到都沒有選取任何值的狀態
+<!--回復預設狀態 , 選單會回到都沒有選取任何值的狀態-->
+//reset address 
 $('#sample').simpAddr('postalVal','')
 $("#sample").simpAddr('townVal','')
 $("#sample").simpAddr('cityVal','')
 
 </code></pre>
 
-<p>p.s 若需要針對特殊需求新增特殊編號 , 例如海外地等 , 請自行對 liar.zipMenu.js 添加資料</p>
+<!-- 若需要針對特殊需求新增特殊編號 , 例如海外地等 , 請自行對 liar.zipMenu.js 添加資料-->
+<p>p.s if you want to add city or district , you could modify the liar.zipMenu.js file</p>
       </section>
     </div>
 
